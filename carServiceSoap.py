@@ -4,6 +4,10 @@ from spyne.server.wsgi import WsgiApplication
 from wsgiref.simple_server import make_server
 from spyne.protocol.json import JsonDocument
 import json
+import os
+
+port = int(os.environ.get('PORT', 33507))
+
 
 carStat = [
         {
@@ -44,8 +48,8 @@ wsgi_application = WsgiApplication(application)
 
 
 def main():
-    server = make_server('localhost', 3000, wsgi_application)
-
+    server = make_server('0.0.0.0', port, wsgi_application)
+    print(f"Listening on port {port}...")
     server.serve_forever()
 
 if __name__ == '__main__':
